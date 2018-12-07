@@ -34,11 +34,14 @@ function start() {
     TableName: tableName
   };
   ddb.describeTable(desc, async function(err, data) {
-    let gsis = data.Table.GlobalSecondaryIndexes;
-    console.log("This table has " + gsis.length + " index");
-    console.log(gsis.map(gsi => gsi.IndexName).reduce((a,b) => a + ", " + b));
-    console.log("------------------------------------------------------");
+    let gsis = [];
 
+    if(data.Table.GlobalSecondaryIndexes != undefined) {
+      gsis = data.Table.GlobalSecondaryIndexes;
+      console.log("This table has " + gsis.length + " index");
+      console.log(gsis.map(gsi => gsi.IndexName).reduce((a,b) => a + ", " + b));
+      console.log("------------------------------------------------------");  
+    }
     gsis.push({IndexName: ''});  // Table
     
     // Write Provisioned
@@ -178,5 +181,4 @@ function getMetricAvg(gsiName, metricName, resolve, reject) {
 }
 
 start();
-
 
