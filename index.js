@@ -5,7 +5,7 @@ if(process.argv.length < 5) {
   exit(1);
 }
 
-AWS.config.loadFromPath('/home/seonc/.aws/config.json');
+AWS.config.loadFromPath(process.argv[2]);
 var ddb = new AWS.DynamoDB();
 var cloudwatch = new AWS.CloudWatch();
 
